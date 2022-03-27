@@ -5,4 +5,7 @@
     <string name="electronics">Electronics</string>
     <string name="suits">Ksh 6000</string>
     <string name="Buy">buy</string>
+    <string name="location">Enter your location</string>
+    <string name="loc">Location</string>
+    <string name="Submit">Submit</string>
 </resources>
