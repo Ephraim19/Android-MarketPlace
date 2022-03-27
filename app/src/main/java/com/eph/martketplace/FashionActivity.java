@@ -16,7 +16,7 @@ public class FashionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityFashion2Binding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        setContentView(view);
+        setContentView(binding.getRoot());
 
         binding.SuitsButton.setOnClickListener(new View.OnClickListener() {
             @Override
