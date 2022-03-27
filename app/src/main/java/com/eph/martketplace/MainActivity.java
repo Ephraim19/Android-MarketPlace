@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        binding.RestaurantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Restaurant Button",Toast.LENGTH_LONG).show();
+                Intent RestaurantScreen = new Intent(MainActivity.this,Restaurants.class);
+                startActivity(RestaurantScreen);
+            }
+        });
     }
 }
 
