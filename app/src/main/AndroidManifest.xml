@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MartketPlace">
         <activity
+            android:name=".LocationActivity"
+            android:exported="false" />
+        <activity
             android:name=".FashionActivity"
             android:exported="false" />
         <activity
