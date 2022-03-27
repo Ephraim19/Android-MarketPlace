@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         binding.FashionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Fashion Button",Toast.LENGTH_LONG).show();
-                Intent FashionScreen = new Intent(MainActivity.this,Fashion.class);
+                Toast.makeText(getApplicationContext(),"Fashion",Toast.LENGTH_LONG).show();
+                Intent FashionScreen = new Intent(MainActivity.this,FashionActivity.class);
                 startActivity(FashionScreen);
             }
         });
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         binding.RestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Restaurant Button",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Restaurants",Toast.LENGTH_LONG).show();
                 Intent RestaurantScreen = new Intent(MainActivity.this,Restaurants.class);
                 startActivity(RestaurantScreen);
             }

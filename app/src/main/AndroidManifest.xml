@@ -10,10 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MartketPlace">
         <activity
-            android:name=".Restaurants"
+            android:name=".FashionActivity"
             android:exported="false" />
         <activity
-            android:name=".Fashion"
+            android:name=".Restaurants"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

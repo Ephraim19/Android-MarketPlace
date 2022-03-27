@@ -2,18 +2,15 @@ package com.eph.martketplace;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.eph.martketplace.databinding.ActivityRestaurantsBinding;
 
 public class Restaurants extends AppCompatActivity {
-    private String[] food = new String[] {"Large pizza","Meat steak","Chicken wings"};
-    private String[] price = new String[] {"Ksh 1200","Ksh 700","Ksh 500"};
+    private final String[] food = new String[] {"Large pizza @ Ksh 1200","Meat steak @ Ksh 700","Chicken wings @ Ksh 500"};
     private ActivityRestaurantsBinding binding;
     private ListView mListView;
     @Override
