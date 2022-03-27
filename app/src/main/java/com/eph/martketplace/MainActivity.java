@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         binding.FashionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(),"Home Button",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MainActivity.this,Fashion.class);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(),"Fashion Button",Toast.LENGTH_LONG).show();
+                Intent FashionScreen = new Intent(MainActivity.this,Fashion.class);
+                startActivity(FashionScreen);
             }
         });
 
