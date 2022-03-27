@@ -7,7 +7,7 @@ public class FashionArrayAdapter extends ArrayAdapter {
     private Context mContext;
     private String[] mFashion;
 
-    public FashionArrayAdapter(Context mContext,String[] mFashion, int resource){
+    public FashionArrayAdapter(Context mContext, int resource,String[] mFashion){
         super(mContext,resource);
         this.mContext = mContext;
         this.mFashion = mFashion;
