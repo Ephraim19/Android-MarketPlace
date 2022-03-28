@@ -13,8 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/fashion"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="25sp"
+        android:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,8 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="180dp"
         android:text="@string/restaurants"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="25sp"
+        android:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,8 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="380dp"
         android:text="@string/electronics"
-        android:textColor="@color/black"
+        android:textColor="@color/red"
         android:textSize="25sp"
+        android:fontFamily="sans-serif-black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
