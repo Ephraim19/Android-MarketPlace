@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MartketPlace</string>
     <string name="fashion">Fashion</string>
-    <string name="restaurants">Restaurants</string>
+    <string name="restaurants">Foods</string>
     <string name="electronics">Electronics</string>
     <string name="suits">Ksh 6000</string>
     <string name="Buy">buy</string>
