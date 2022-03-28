@@ -15,6 +15,7 @@ public class DeliveryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery);
+        //binding.textView4.setText("yooh");
         //Intent intent = getIntent();
         //String location = intent.getStringExtra("location");
         //binding.textView4.setText("Ephraim");

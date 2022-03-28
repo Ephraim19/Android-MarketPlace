@@ -21,7 +21,7 @@ public class FashionActivity extends AppCompatActivity {
         binding.SuitsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"Suit",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Men Suits",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(FashionActivity.this,LocationActivity.class);
                 startActivity(intent);
             }

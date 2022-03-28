@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="125dp"
             android:layout_weight="1"
-            android:text="@string/suits"
+            android:text="Ksh 5500"
             android:padding="20dp"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -100,6 +100,7 @@
             />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -127,9 +128,72 @@
             android:contentDescription="@string/app_name"
             />
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="325dp"
+            android:layout_weight="1"
+            android:text="Ksh 1700"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="325dp"
+            android:layout_weight="1"
+            android:text="Ksh 1300"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="370dp"
+            android:layout_weight="1"
+            android:text="@string/Buy"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginStart="20dp"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="370dp"
+            android:layout_weight="1"
+            android:text="@string/Buy"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="50dp"
+            />
+
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -156,7 +220,71 @@
             android:layout_marginTop="300dp"
             android:contentDescription="@string/app_name"
             />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="525dp"
+            android:layout_weight="1"
+            android:text="Ksh 500"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="525dp"
+            android:layout_weight="1"
+            android:text="Ksh 700"
+            android:padding="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            />
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="570dp"
+            android:layout_weight="1"
+            android:text="@string/Buy"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="70dp"
+            android:layout_marginStart="20dp"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="570dp"
+            android:layout_weight="1"
+            android:text="@string/Buy"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_marginEnd="50dp"
+            />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

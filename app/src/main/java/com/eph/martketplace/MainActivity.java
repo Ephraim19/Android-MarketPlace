@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(binding.getRoot());
-
         binding.FashionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
