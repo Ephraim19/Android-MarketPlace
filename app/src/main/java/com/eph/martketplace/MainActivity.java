@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(RestaurantScreen);
             }
         });
+        binding.ElectronicsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Coming soon",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
 
