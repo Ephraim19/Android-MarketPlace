@@ -16,11 +16,12 @@ public class DeliveryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDeliveryBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_delivery);
+        View view = binding.getRoot();
+        setContentView(view);
 
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
         Log.v(TAG,location);
-        binding.MyLocation.setText(location);
+        binding.MyLocation.setText("Your order  will be delivered to " + location);
     }
 }
