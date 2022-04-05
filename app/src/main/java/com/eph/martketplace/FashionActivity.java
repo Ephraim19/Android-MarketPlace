@@ -9,22 +9,23 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.eph.martketplace.Interfaces.MyTweetCall;
+import com.eph.martketplace.adapters.FashionAdapters;
 import com.eph.martketplace.client.TwitterClient;
-import com.eph.martketplace.constant.Constants;
 import com.eph.martketplace.dataModels.TwitterData;
 import com.eph.martketplace.databinding.ActivityFashion2Binding;
 
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FashionActivity extends AppCompatActivity {
     private ActivityFashion2Binding binding;
+
+    //recycle view data
+    String[] price = {"Ksh 6000","Ksh 5500","Ksh 1700","Ksh 1300","Ksh 3200","Ksh 900"};
+    String[] description = {"Men suits","Red shoes","Nike Airforce shoes","Grey men shorts","Yellow T-shirts","Blue men jeans"};
+    int[] images = {R.drawable.fashion,R.drawable.shoes,R.drawable.nikes1,R.drawable.shoes,R.drawable.tshirt,R.drawable.jeans1};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +33,7 @@ public class FashionActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(binding.getRoot());
 
-
-
+        FashionAdapters adapters = new FashionAdapters(this,price,description,images);
         binding.SuitsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
