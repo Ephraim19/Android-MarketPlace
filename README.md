@@ -8,8 +8,8 @@
 
 ## Getting Started
 
-##Apk download link
-* https://ufile.io/9ocbn5tb
+## Apk download link
+* https://ufile.io/u3ufpxc0
 
 ## Installation
 * `git clone <https://github.com/Android-MarketPlace/news.git>` 
