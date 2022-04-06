@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Fashion",Toast.LENGTH_LONG).show();
-                Intent FashionScreen = new Intent(MainActivity.this,FashionActivity.class);
+                Intent FashionScreen = new Intent(MainActivity.this,MainActivity2.class);
                 startActivity(FashionScreen);
             }
         });
