@@ -57,7 +57,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 Toast.makeText(context.getApplicationContext(), "Tweet posting",Toast.LENGTH_LONG).show();
                 holder.itemView.findViewById(R.id.progressBar).setVisibility(view.VISIBLE);
                 MyTweetCall client = TwitterClient.getClient();
-                TwitterData modal = new TwitterData("Men suits");
+                TwitterData modal = new TwitterData((String) holder.MyText1.getText());
                 Call<TwitterData> call = client.postTweet(modal);
 
                 call.enqueue(new Callback<TwitterData>() {
