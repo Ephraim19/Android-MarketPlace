@@ -20,7 +20,10 @@
         <activity
             android:name=".LocationActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".FashionActivity"
+            android:exported="false" />
+        <activity
             android:name=".Restaurants"
             android:exported="false" />
         <activity
