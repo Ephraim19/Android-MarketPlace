@@ -64,6 +64,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                     @Override
                     public void onResponse(Call<TwitterData> call, Response<TwitterData> response) {
                         if(response.code() != 201){
+                            Log.v("code", String.valueOf(response.code()));
                             Toast.makeText(context.getApplicationContext(),"Failed to post tweet",Toast.LENGTH_LONG).show();
                         }else {
                             Toast.makeText(context.getApplicationContext(), "Tweet posted", Toast.LENGTH_LONG).show();

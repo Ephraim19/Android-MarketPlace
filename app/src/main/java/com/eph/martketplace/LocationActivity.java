@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.eph.martketplace.databinding.ActivityLocationBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class LocationActivity extends AppCompatActivity {
@@ -28,6 +30,12 @@ public class LocationActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Submitting Location",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LocationActivity.this,DeliveryActivity.class);
                 intent.putExtra("location", location);
+
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
+                DatabaseReference myRef = database.getReference("message");
+                myRef.push().setValue(location);
+
                 Log.v(TAG,location);
                 startActivity(intent);
             }

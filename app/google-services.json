@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "96204015454",
+    "project_id": "martketplace-5cda7",
+    "storage_bucket": "martketplace-5cda7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96204015454:android:65ff395dc562b90b0ab1cf",
+        "android_client_info": {
+          "package_name": "com.eph.martketplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96204015454-pehqcu9t3ug560eiij7dtie2evehc9i4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnK4PXI8NgQW24rnZznllw9sYfWsWUq5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96204015454-pehqcu9t3ug560eiij7dtie2evehc9i4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
