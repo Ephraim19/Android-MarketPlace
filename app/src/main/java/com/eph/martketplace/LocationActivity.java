@@ -33,7 +33,7 @@ public class LocationActivity extends AppCompatActivity {
 
                 // Write a message to the database
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
-                DatabaseReference myRef = database.getReference("message");
+                DatabaseReference myRef = database.getReference("location");
                 myRef.push().setValue(location);
 
                 Log.v(TAG,location);
