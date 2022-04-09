@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.eph.martketplace.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "marketplace home";
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         binding.RestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getApplicationContext(),"Restaurants",Toast.LENGTH_LONG).show();
                 Intent RestaurantScreen = new Intent(MainActivity.this,Restaurants.class);
                 startActivity(RestaurantScreen);

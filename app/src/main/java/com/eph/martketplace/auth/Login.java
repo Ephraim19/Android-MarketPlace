@@ -49,6 +49,7 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"register",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Login.this, Sign_Up.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
