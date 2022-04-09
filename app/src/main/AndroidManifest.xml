@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MartketPlace">
         <activity
-            android:name=".CreateAccount"
+            android:name=".auth.Sign_Up"
+            android:exported="false" />
+        <activity
+            android:name=".auth.Login"
+            android:exported="false" />
+        <activity
+            android:name=".auth.CreateAccount"
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
