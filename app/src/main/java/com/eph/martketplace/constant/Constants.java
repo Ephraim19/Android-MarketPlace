@@ -8,4 +8,8 @@ public class Constants {
 
     //Firebase
     public static final String FASHION = "fashion";
+
+    //shared preference
+    public static final String LOCATION_KEY = "location";
+
 }
