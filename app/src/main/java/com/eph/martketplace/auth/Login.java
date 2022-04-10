@@ -34,6 +34,17 @@ public class Login extends AppCompatActivity {
                 loginUser();
             }
         });
+
+        //Starting sign up activity
+        binding.register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"register",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, Sign_Up.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void loginUser() {
@@ -79,17 +90,6 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
         }
-
-        //Starting sign up activity
-        binding.register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"register",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Login.this, Sign_Up.class);
-                startActivity(intent);
-                finish();
-            }
-        });
     }
 }
 
