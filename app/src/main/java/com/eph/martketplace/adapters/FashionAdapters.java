@@ -21,8 +21,14 @@ import com.eph.martketplace.R;
 import com.eph.martketplace.client.TwitterClient;
 import com.eph.martketplace.dataModels.TwitterData;
 import com.eph.martketplace.databinding.MyRowsBinding;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -101,11 +107,37 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         holder.itemView.findViewById(R.id.checkBox).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Write a message to the database
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
                 DatabaseReference myRef = database.getReference("Wishlist");
-                myRef.push().setValue(holder.getAdapterPosition());
-                Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] +" added",Toast.LENGTH_LONG).show();
+                CheckBox checkBox = holder.itemView.findViewWithTag(holder.getAdapterPosition()+1);
+
+                if (checkBox.isChecked()) {
+                    // Write a message to the database
+                    myRef.push().setValue(holder.getAdapterPosition());
+                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " added", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " removed", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        //get the user wishlist
+        // Read from the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
+        DatabaseReference myRef = database.getReference("Wishlist");
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Map<String,Object> map = dataSnapshot.getValue(Map.class);
+                Map<String, String> map = (Map)dataSnapshot.getValue();
+                Log.i("infoor", String.valueOf(map));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("fail", "Failed to read value.", error.toException());
             }
         });
     }
