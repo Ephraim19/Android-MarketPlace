@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.eph.martketplace.auth.Login;
 import com.eph.martketplace.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        setContentView(binding.getRoot());
+        setContentView(view);
         binding.FashionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         binding.RestaurantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getApplicationContext(),"Restaurants",Toast.LENGTH_LONG).show();
                 Intent RestaurantScreen = new Intent(MainActivity.this,Restaurants.class);
                 startActivity(RestaurantScreen);
@@ -43,6 +43,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"Coming soon",Toast.LENGTH_LONG).show();
+            }
+        });
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(getApplicationContext(),"Logged out",Toast.LENGTH_LONG).show();
+                Intent loginScreen = new Intent(MainActivity.this, Login.class);
+                startActivity(loginScreen);
+
             }
         });
     }
