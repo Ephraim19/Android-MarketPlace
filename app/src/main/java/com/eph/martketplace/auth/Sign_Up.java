@@ -90,6 +90,7 @@ public class Sign_Up extends AppCompatActivity {
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this,task -> {
+                    binding.progressBar3.setVisibility(View.VISIBLE);
                     if (task.isSuccessful()) {
                         Toast.makeText(Sign_Up.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
                         Log.d( TAG, "Authentication successful");
@@ -98,9 +99,11 @@ public class Sign_Up extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Login...",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Sign_Up.this, Login.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        binding.progressBar3.setVisibility(View.INVISIBLE);
                         startActivity(intent);
 
                     } else{
+                        binding.progressBar3.setVisibility(View.INVISIBLE);
                         Log.d( "mail", email);
                         Toast.makeText(Sign_Up.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }

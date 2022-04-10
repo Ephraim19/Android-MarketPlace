@@ -65,12 +65,15 @@ public class Login extends AppCompatActivity {
 
         mAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this,task -> {
+                    binding.progressBar2.setVisibility(View.VISIBLE);
                     if(task.isSuccessful()) {
                         Toast.makeText(Login.this, "Logging in...", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        binding.progressBar2.setVisibility(View.INVISIBLE);
                         startActivity(intent);
                     }else {
+                        binding.progressBar2.setVisibility(View.INVISIBLE);
                         Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
