@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.eph.martketplace.R;
 import com.eph.martketplace.client.TwitterClient;
 import com.eph.martketplace.dataModels.TwitterData;
 import com.eph.martketplace.databinding.MyRowsBinding;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,12 +32,14 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
 
     public String[] price;
     public int[] images;
+    public int[] id;
     Context context;
 
-    public FashionAdapters(Context context,String[] price, int[] images) {
+    public FashionAdapters(Context context,String[] price, int[] images,int[] id) {
         this.context = context;
         this.price = price;
         this.images = images;
+        this.id = id;
     }
 
     @NonNull
@@ -49,6 +54,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.MyText1.setText(price[position]);
         holder.myImage.setImageResource(images[position]);
+        holder.myId.setTag(id[position]);
 
         //Send tweets
         holder.itemView.findViewById(R.id.tweet).setOnClickListener(new View.OnClickListener() {
@@ -90,6 +96,18 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 context.startActivity(intent);
             }
         });
+
+        //Saving wishlist to firebase
+        holder.itemView.findViewById(R.id.checkBox).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
+                DatabaseReference myRef = database.getReference("Wishlist");
+                myRef.push().setValue(holder.getAdapterPosition());
+                Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] +" added",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -99,12 +117,14 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView MyText1, MyText2;
+        TextView MyText1;
         ImageView myImage;
+        CheckBox myId;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             myImage = itemView.findViewById(R.id.images);
             MyText1 = itemView.findViewById(R.id.Text1);
+            myId = itemView.findViewById(R.id.checkBox);
         }
     }
 }

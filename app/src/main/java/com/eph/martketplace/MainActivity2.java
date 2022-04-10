@@ -24,7 +24,7 @@ public class MainActivity2 extends AppCompatActivity {
     RecyclerView recyclerView;
     //recycle view data
     String[] price = {"Men tuxedo suits that fit you perfectly - Ksh 6000","Red rubber shoes perfect for workouts - Ksh 5500","Nike Airforce 1 shoes, improve your shoe game - Ksh 1700","Grey men shorts for relaxing on hot days - Ksh 1300","Yellow T-shirts, shine from far - Ksh 3200","Blue men jeans that fir perfectly - Ksh 900"};
-    String[] description = {"Men suits","Red shoes","Nike Airforce shoes","Grey men shorts","Yellow T-shirts","Blue men jeans"};
+    int[] id = {1,2,3,4,5,6};
     int[] images = {R.drawable.fashion,R.drawable.shoes,R.drawable.nikes1,R.drawable.greyshorts,R.drawable.tshirt,R.drawable.jeans1};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         recyclerView = findViewById(R.id.recyclerView);
-        FashionAdapters adapter = new FashionAdapters(this,price,images);
+        FashionAdapters adapter = new FashionAdapters(this,price,images,id);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
