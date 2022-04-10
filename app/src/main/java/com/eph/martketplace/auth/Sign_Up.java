@@ -42,6 +42,7 @@ public class Sign_Up extends AppCompatActivity {
         binding.regiserUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.progressBar3.setVisibility(View.VISIBLE);
                 createUser();
             }
         });
@@ -53,36 +54,42 @@ public class Sign_Up extends AppCompatActivity {
         final String confirmPassword = binding.confirmPasswordText.getText().toString().trim();
 
         if(email.isEmpty()){
+            binding.progressBar3.setVisibility(View.VISIBLE);
             binding.emailText.setError("Email is required");
             binding.emailText.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
+            binding.progressBar3.setVisibility(View.VISIBLE);
             binding.passwordText.setError("Password is required");
             binding.passwordText.requestFocus();
             return;
         }
 
         if(confirmPassword.isEmpty()){
+            binding.progressBar3.setVisibility(View.INVISIBLE);
             binding.confirmPasswordText.setError("Enter your password again");
             binding.confirmPasswordText.requestFocus();
             return;
         }
 
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.progressBar3.setVisibility(View.INVISIBLE);
             binding.emailText.setError("Enter a valid email");
             binding.emailText.requestFocus();
             return;
         }
 
         if(password.length() < 6){
+            binding.progressBar3.setVisibility(View.INVISIBLE);
             binding.passwordText.setError("Your password must have 6 or more characters");
             binding.passwordText.requestFocus();
             return;
         }
 
         if(!password.equals(confirmPassword)){
+            binding.progressBar3.setVisibility(View.INVISIBLE);
             binding.confirmPasswordText.setError("Passwords do not match");
             binding.confirmPasswordText.requestFocus();
             return;
@@ -90,13 +97,11 @@ public class Sign_Up extends AppCompatActivity {
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this,task -> {
-                    binding.progressBar3.setVisibility(View.VISIBLE);
                     if (task.isSuccessful()) {
-                        Toast.makeText(Sign_Up.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Sign_Up.this, "Account created", Toast.LENGTH_SHORT).show();
                         Log.d( TAG, "Authentication successful");
 
                         //Opening login intent
-                        Toast.makeText(getApplicationContext(),"Login...",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Sign_Up.this, Login.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         binding.progressBar3.setVisibility(View.INVISIBLE);

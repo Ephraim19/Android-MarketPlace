@@ -31,6 +31,7 @@ public class Login extends AppCompatActivity {
         binding.loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.progressBarLogin.setVisibility(View.VISIBLE);
                 loginUser();
             }
         });
@@ -52,28 +53,28 @@ public class Login extends AppCompatActivity {
         final String password = binding.passwordText.getText().toString().trim();
 
         if(email.isEmpty()){
+            binding.progressBarLogin.setVisibility(View.INVISIBLE);
             binding.emailText.setError("Email is required");
             binding.emailText.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
+            binding.progressBarLogin.setVisibility(View.INVISIBLE);
             binding.passwordText.setError("Password is required");
             binding.passwordText.requestFocus();
             return;
         }
-
         mAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this,task -> {
-                    binding.progressBar2.setVisibility(View.VISIBLE);
                     if(task.isSuccessful()) {
                         Toast.makeText(Login.this, "Logging in...", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        binding.progressBar2.setVisibility(View.INVISIBLE);
+                        binding.progressBarLogin.setVisibility(View.INVISIBLE);
                         startActivity(intent);
                     }else {
-                        binding.progressBar2.setVisibility(View.INVISIBLE);
+                        binding.progressBarLogin.setVisibility(View.INVISIBLE);
                         Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
