@@ -92,7 +92,6 @@
             android:layout_marginTop="135dp"
             android:layout_weight="1"
             android:button="@drawable/selector_wishlist"
-            app:useMaterialThemeColors="false"
             />
     </LinearLayout>
 
