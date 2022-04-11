@@ -2,6 +2,7 @@ package com.eph.martketplace.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -113,25 +115,39 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
 
                 if (checkBox.isChecked()) {
                     // Write a message to the database
-                    myRef.push().setValue(holder.getAdapterPosition());
-                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " added", Toast.LENGTH_LONG).show();
+                    myRef.push().setValue(price[holder.getAdapterPosition()]);
+  //                  Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " added", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " removed", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " removed", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
         //get the user wishlist
-        // Read from the database
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("Wishlist");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Map<String,Object> map = dataSnapshot.getValue(Map.class);
-                Map<String, String> map = (Map)dataSnapshot.getValue();
-                Log.i("infoor", String.valueOf(map));
+                ArrayList<String> myWishes = new ArrayList<>();
+                myWishes.clear();
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    myWishes.add((String) snapshot.getValue());
+                }
+
+                for(int i=0;i<price.length;i++){
+                    if (myWishes.contains(price[i])) {
+                        CheckBox checkBox1 = holder.itemView.findViewWithTag(i+1);
+                        if(checkBox1 != null) {
+                            checkBox1.setChecked(true);
+                        }
+                        Log.i("datas", String.valueOf(checkBox1));
+
+                    } else {
+                        Log.i("data", "none");
+                    }
+                }
             }
 
             @Override
