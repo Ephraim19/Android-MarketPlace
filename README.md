@@ -10,7 +10,7 @@
 
 
 ## Apk download link
-* https://ufile.io/jcsbb0cc
+* https://ufile.io/pe449j85
 
 ## Installation
 * `git clone <https://github.com/Android-MarketPlace/news.git>` 

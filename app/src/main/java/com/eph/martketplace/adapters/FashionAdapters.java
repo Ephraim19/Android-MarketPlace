@@ -123,7 +123,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
             }
         });
 
-        //get the user wishlist
+        //get the user wishlist and highlight
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
         DatabaseReference myRef = database.getReference("Wishlist");
 
@@ -142,7 +142,6 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                         if(checkBox1 != null) {
                             checkBox1.setChecked(true);
                         }
-                        Log.i("datas", String.valueOf(checkBox1));
 
                     } else {
                         Log.i("data", "none");
