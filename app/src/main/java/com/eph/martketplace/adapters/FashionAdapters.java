@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -116,9 +119,9 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 if (checkBox.isChecked()) {
                     // Write a message to the database
                     myRef.push().setValue(price[holder.getAdapterPosition()]);
-  //                  Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " added", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " added", Toast.LENGTH_LONG).show();
                 } else {
-//                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " removed", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " removed", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -130,6 +133,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                holder.itemView.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                 ArrayList<String> myWishes = new ArrayList<>();
                 myWishes.clear();
                 for(DataSnapshot snapshot:dataSnapshot.getChildren()){
@@ -146,15 +150,21 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                     } else {
                         Log.i("data", "none");
                     }
+                    holder.itemView.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
+                holder.itemView.findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
                 // Failed to read value
                 Log.w("fail", "Failed to read value.", error.toException());
             }
         });
+
+        //search clothes
+
     }
 
     @Override
@@ -162,7 +172,6 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         Log.v("count", String.valueOf(images.length));
         return images.length;
     }
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView MyText1;
         ImageView myImage;

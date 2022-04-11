@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--Search view widget as item in menu-->
+    <item
+        android:id="@+id/searchBar"
+        android:title="Search"
+        android:icon="@drawable/search"
+        app:actionViewClass="android.widget.SearchView"
+        android:tooltipText="Search your location"
+        app:showAsAction="ifRoom|collapseActionView"
+        />
+</menu>
