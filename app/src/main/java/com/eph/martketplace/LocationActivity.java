@@ -27,7 +27,7 @@ public class LocationActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
 
     // Define List for List View data
-     String[] myLocations = {"thika","kiambu","kahawa","ngong","kitengela","kikuyu","rongai","embakasi","roysambu"};
+     String[] myLocations = {"thika","kiambu","kahawa","ngong","kitengela","kikuyu","rongai","embakasi","roysambu","langata","umoja","kasarani","juja","south B","south C","cabanas","mlolongo","nakuru","nairobi","kisumu","mombasa","kisii","kitale"};
      ArrayAdapter<String> arrayAdapter;
      ListView listView;
     @Override
