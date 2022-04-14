@@ -63,6 +63,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         return new MyViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.MyText1.setText(price[position]);
@@ -77,7 +78,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         holder.itemView.findViewById(R.id.tweet).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context.getApplicationContext(), "Tweet posting",Toast.LENGTH_LONG).show();
+                Toast.makeText(context.getApplicationContext(), "Tweet posting", Toast.LENGTH_LONG).show();
                 holder.itemView.findViewById(R.id.progressBar).setVisibility(view.VISIBLE);
                 MyTweetCall client = TwitterClient.getClient();
                 TwitterData modal = new TwitterData("Men suits");
@@ -86,10 +87,10 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 call.enqueue(new Callback<TwitterData>() {
                     @Override
                     public void onResponse(Call<TwitterData> call, Response<TwitterData> response) {
-                        if(response.code() != 201){
+                        if (response.code() != 201) {
                             Log.v("code", String.valueOf(response.code()));
-                            Toast.makeText(context.getApplicationContext(),"Failed to post tweet",Toast.LENGTH_LONG).show();
-                        }else {
+                            Toast.makeText(context.getApplicationContext(), "Failed to post tweet", Toast.LENGTH_LONG).show();
+                        } else {
                             Toast.makeText(context.getApplicationContext(), "Tweet posted", Toast.LENGTH_LONG).show();
                         }
                         holder.itemView.findViewById(R.id.progressBar).setVisibility(view.INVISIBLE);
@@ -98,7 +99,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                     @Override
                     public void onFailure(Call<TwitterData> call, Throwable t) {
                         holder.itemView.findViewById(R.id.progressBar).setVisibility(view.INVISIBLE);
-                        Toast.makeText(context.getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context.getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -108,8 +109,8 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         holder.itemView.findViewById(R.id.buy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context.getApplicationContext(),"Clothes",Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(context,LocationActivity.class);
+                Toast.makeText(context.getApplicationContext(), "Clothes", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(context, LocationActivity.class);
                 context.startActivity(intent);
             }
         });
@@ -122,14 +123,32 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 //Adding data to firebase
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
                 DatabaseReference myRef = database.getReference("Wishlist").child(userId);
-                CheckBox checkBox = holder.itemView.findViewWithTag(holder.getAdapterPosition()+1);
+                CheckBox checkBox = holder.itemView.findViewWithTag(holder.getAdapterPosition() + 1);
 
                 if (checkBox.isChecked()) {
                     // Write a message to the database
                     myRef.push().setValue(price[holder.getAdapterPosition()]);
                     Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " added", Toast.LENGTH_LONG).show();
                 } else {
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.child(userId).getChildren()) {
+                                if (dataSnapshot.equals(price[holder.getAdapterPosition()])) {
+                                    myRef.setValue(null);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+
+                    });
                     Toast.makeText(context.getApplicationContext(), price[holder.getAdapterPosition()] + " removed", Toast.LENGTH_LONG).show();
+
                 }
             }
         });
@@ -144,14 +163,14 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 holder.itemView.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                 ArrayList<String> myWishes = new ArrayList<>();
                 myWishes.clear();
-                for(DataSnapshot snapshot:dataSnapshot.child(userId).getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.child(userId).getChildren()) {
                     myWishes.add((String) snapshot.getValue());
                 }
 
-                for(int i=0;i<price.length;i++){
+                for (int i = 0; i < price.length; i++) {
                     if (myWishes.contains(price[i])) {
-                        CheckBox checkBox1 = holder.itemView.findViewWithTag(i+1);
-                        if(checkBox1 != null) {
+                        CheckBox checkBox1 = holder.itemView.findViewWithTag(i + 1);
+                        if (checkBox1 != null) {
                             checkBox1.setChecked(true);
                         }
 
@@ -171,9 +190,9 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
             }
         });
 
-        //search clothes
 
     }
+
 
     @Override
     public int getItemCount() {
