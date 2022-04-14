@@ -3,7 +3,10 @@ package com.eph.martketplace.auth;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ActivityLoginBinding binding;
+    private SharedPreferences.Editor mEditor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +76,15 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, "Logging in...", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Login.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                        //Saving the uid to shared preferences
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        String uid = user.getUid();
+
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                        mEditor = sharedPreferences.edit();
+                        addToSharedPreferences(uid);
+
                         binding.progressBarLogin.setVisibility(View.INVISIBLE);
                         startActivity(intent);
                     }else {
@@ -78,6 +92,10 @@ public class Login extends AppCompatActivity {
                         Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+    }
+
+    private void addToSharedPreferences(String uid) {
+        mEditor.putString("User", uid).apply();
     }
 
     // Check if user is signed in
@@ -88,6 +106,7 @@ public class Login extends AppCompatActivity {
         updateUI(currentUser);
     }
 
+    //Logging in user automatically if they did not log out
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null){
             Toast.makeText(getApplicationContext(),"Logged in",Toast.LENGTH_SHORT).show();

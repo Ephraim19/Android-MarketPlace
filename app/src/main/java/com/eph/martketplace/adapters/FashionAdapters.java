@@ -2,6 +2,8 @@ package com.eph.martketplace.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,7 +47,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
     public int[] images;
     public int[] id;
     Context context;
-
+    private SharedPreferences mSharedPreferences;
     public FashionAdapters(Context context,String[] price, int[] images,int[] id) {
         this.context = context;
         this.price = price;
@@ -66,6 +68,10 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         holder.MyText1.setText(price[position]);
         holder.myImage.setImageResource(images[position]);
         holder.myId.setTag(id[position]);
+
+        //getting the user id from shared preference
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String userId = mSharedPreferences.getString("User", null);
 
         //Send tweets
         holder.itemView.findViewById(R.id.tweet).setOnClickListener(new View.OnClickListener() {
@@ -112,8 +118,10 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
         holder.itemView.findViewById(R.id.checkBox).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //Adding data to firebase
                 FirebaseDatabase database = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/");
-                DatabaseReference myRef = database.getReference("Wishlist");
+                DatabaseReference myRef = database.getReference("Wishlist").child(userId);
                 CheckBox checkBox = holder.itemView.findViewWithTag(holder.getAdapterPosition()+1);
 
                 if (checkBox.isChecked()) {
@@ -136,7 +144,7 @@ public class FashionAdapters extends RecyclerView.Adapter<FashionAdapters.MyView
                 holder.itemView.findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
                 ArrayList<String> myWishes = new ArrayList<>();
                 myWishes.clear();
-                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                for(DataSnapshot snapshot:dataSnapshot.child(userId).getChildren()){
                     myWishes.add((String) snapshot.getValue());
                 }
 

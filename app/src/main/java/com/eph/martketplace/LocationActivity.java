@@ -25,8 +25,6 @@ import java.util.Locale;
 public class LocationActivity extends AppCompatActivity {
     private ActivityLocationBinding binding;
     private static final String TAG = "MyActivity";
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
 
     // Define List for List View data
      String[] myLocations = {"thika","kiambu","kahawa","ngong","kitengela","kikuyu","rongai","embakasi","roysambu"};
@@ -43,17 +41,13 @@ public class LocationActivity extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,myLocations);
         listView.setAdapter(arrayAdapter);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mEditor = sharedPreferences.edit();
+
 
 
         binding.LocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String userLocation = (String) binding.textView4.getText();
-                //adding to shared preference
-                addToSharedPreferences(userLocation);
-
                 Toast.makeText(getApplicationContext(),"Submitting Location",Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(LocationActivity.this,DeliveryActivity.class);
                 intent.putExtra("location",userLocation);
@@ -62,9 +56,7 @@ public class LocationActivity extends AppCompatActivity {
         });
     }
 
-    private void addToSharedPreferences(String location) {
-        mEditor.putString(Constants.LOCATION_KEY, location).apply();
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

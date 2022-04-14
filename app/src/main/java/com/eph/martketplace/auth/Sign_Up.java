@@ -3,7 +3,9 @@ package com.eph.martketplace.auth;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -13,11 +15,13 @@ import android.widget.Toast;
 import com.eph.martketplace.R;
 import com.eph.martketplace.databinding.ActivitySignUpBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Sign_Up extends AppCompatActivity {
     private static final String TAG = "Sign up";
     private FirebaseAuth mAuth;
     private ActivitySignUpBinding binding;
+    private SharedPreferences.Editor mEditor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +36,11 @@ public class Sign_Up extends AppCompatActivity {
         binding.LoginView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                binding.progressBar3.setVisibility(View.VISIBLE);
                 Toast.makeText(getApplicationContext(),"Login...",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Sign_Up.this, Login.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                binding.progressBar3.setVisibility(View.INVISIBLE);
                 startActivity(intent);
             }
         });
@@ -54,14 +60,14 @@ public class Sign_Up extends AppCompatActivity {
         final String confirmPassword = binding.confirmPasswordText.getText().toString().trim();
 
         if(email.isEmpty()){
-            binding.progressBar3.setVisibility(View.VISIBLE);
+            binding.progressBar3.setVisibility(View.INVISIBLE);
             binding.emailText.setError("Email is required");
             binding.emailText.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
-            binding.progressBar3.setVisibility(View.VISIBLE);
+            binding.progressBar3.setVisibility(View.INVISIBLE);
             binding.passwordText.setError("Password is required");
             binding.passwordText.requestFocus();
             return;
@@ -97,9 +103,18 @@ public class Sign_Up extends AppCompatActivity {
 
         mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this,task -> {
+                    binding.progressBar3.setVisibility(View.VISIBLE);
                     if (task.isSuccessful()) {
                         Toast.makeText(Sign_Up.this, "Account created", Toast.LENGTH_SHORT).show();
                         Log.d( TAG, "Authentication successful");
+
+                        //Saving the uid to shared preferences
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        String uid = user.getUid();
+
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+                        mEditor = sharedPreferences.edit();
+                        addToSharedPreferences(uid);
 
                         //Opening login intent
                         Intent intent = new Intent(Sign_Up.this, Login.class);
@@ -113,6 +128,11 @@ public class Sign_Up extends AppCompatActivity {
                         Toast.makeText(Sign_Up.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
+
+    }
+
+    private void addToSharedPreferences(String uid) {
+        mEditor.putString("User", uid).apply();
 
     }
 }
