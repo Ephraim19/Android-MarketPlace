@@ -3,6 +3,9 @@
     package="com.eph.martketplace">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" android:required="true"/>
 
     <application
@@ -13,6 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MartketPlace"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.eph.martketplace"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+
+        </provider>
         <activity
             android:name=".SavedWishlist"
             android:exported="false" />
