@@ -25,3 +25,14 @@ public class DeliveryActivity extends AppCompatActivity {
         binding.MyLocation.setText("Your order  will be delivered to " + location);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
