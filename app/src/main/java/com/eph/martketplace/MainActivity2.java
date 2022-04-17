@@ -5,16 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.assist.AssistStructure;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +33,8 @@ import com.eph.martketplace.adapters.FashionAdapters;
 import com.eph.martketplace.client.TwitterClient;
 import com.eph.martketplace.dataModels.TwitterData;
 import com.eph.martketplace.databinding.ActivityMain2Binding;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +42,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,6 +61,7 @@ public class MainActivity2 extends AppCompatActivity {
     RecyclerView recyclerView;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 11;
+    private String currentPhotoPath;
 
     //recycle view data
     String[] price = {"Men tuxedo suits that fit you perfectly - Ksh 6000","Red rubber shoes perfect for workouts - Ksh 5500","Nike Airforce 1 shoes, improve your shoe game - Ksh 1700","Grey men shorts for relaxing on hot days - Ksh 1300","Yellow T-shirts, shine from far - Ksh 3200","Blue men jeans that fir perfectly - Ksh 900"};
@@ -112,7 +128,7 @@ public class MainActivity2 extends AppCompatActivity {
         try {
             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
         } catch (ActivityNotFoundException e) {
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -122,8 +138,33 @@ public class MainActivity2 extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
-            Log.v("imag", String.valueOf(imageBitmap));
+            encodeBitmapAndSaveToFirebase(imageBitmap);
         }
+    }
+
+
+
+    private void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 0, byteArrayOutputStream);
+        String imageEncoded = Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
+        DatabaseReference ref = FirebaseDatabase.getInstance("https://martketplace-5cda7-default-rtdb.firebaseio.com/")
+                .getReference("Listings")
+                .child(FirebaseAuth.getInstance(FirebaseApp.getInstance()).getCurrentUser().getUid())
+                .child("imageUrl");
+        ref.push().setValue(imageEncoded);
+    }
+
+    private File createImageFile()  {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "Restaurant_JPEG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = new File(storageDir, imageFileName + ".jpg");
+
+        // Save a file: path for use with ACTION_VIEW intents
+        String currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 }
 
