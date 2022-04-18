@@ -61,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        binding.imagebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"Listings",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(MainActivity.this,Listings.class);
+                startActivity(intent);
+            }
+        });
     }
 }
 
