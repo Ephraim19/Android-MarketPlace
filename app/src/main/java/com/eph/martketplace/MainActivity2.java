@@ -74,7 +74,7 @@ public class MainActivity2 extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = binding.recyclerView;
         FashionAdapters adapter = new FashionAdapters(this,price,images,id);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -158,7 +158,7 @@ public class MainActivity2 extends AppCompatActivity {
     private File createImageFile()  {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "Restaurant_JPEG_" + timeStamp + "_";
+        String imageFileName = "FASHION_JPEG_" + timeStamp + "_";
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = new File(storageDir, imageFileName + ".jpg");
 
